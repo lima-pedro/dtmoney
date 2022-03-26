@@ -1,0 +1,43 @@
+[
+    {
+        "_id": 1,
+        "description": "Desenvolvimento de site",
+        "price": 12000,
+        "category": "Venda",
+        "date": "13/04/2021",
+        "type": "deposit"
+    },
+    {
+        "_id": 2,
+        "description": "Hamburger",
+        "price": 59,
+        "category": "Alimentação",
+        "date": "10/04/2021",
+        "type": "withdraw"
+    },
+    {
+        "_id": 3,
+        "description": "Aluguel de apartamento",
+        "price": 1200,
+        "category": "Casa",
+        "date": "27/03/2021",
+        "type": "withdraw"
+    },
+    {
+        "_id": 4,
+        "description": "Computador",
+        "price": 5400,
+        "category": "Venda",
+        "date": "15/03/2021",
+        "type": "deposit"
+    },
+    {
+        "_id": 5,
+        "description": "Freela",
+        "price": 3412,
+        "category": "Trabalho",
+        "date": "15/03/2022",
+        "type": "deposit"
+    }
+
+]
