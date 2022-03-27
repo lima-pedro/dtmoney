@@ -1,10 +1,21 @@
 import { Container } from "./styles";
-import { numberFormat } from '../../utils/numberFomart';
+import { numberFormat } from '../../utils/numberFormat';
+import { dateFormat } from '../../utils/dateFormat';
 import { useContext } from 'react';
-import { TransactionsContext } from '../../context/TransactionsContext';
+// import { TransactionsContext } from '../../context/TransactionsContext';
+import { useTransactions } from '../../hooks/useTransactions';
+
+interface Transaction {
+  _id: string,
+  description: string,
+  category: string,
+  type: string,
+  price: number,
+  date: Date
+}
 
 export function TransactionsTable() {
-  const { transactions } = useContext(TransactionsContext);
+  const { transactions } = useTransactions();
 
   return (
     <Container>
@@ -19,15 +30,15 @@ export function TransactionsTable() {
         </thead>
 
         <tbody>
-          {transactions.map((statement: any) => (
-            <tr key={statement._id}>
-              <td>{statement.description}</td>
-              <td className={statement.type}>
-                {statement.type === 'withdraw' && ' - '}
-                {numberFormat(statement.price)}
+          {transactions.map((transaction: Transaction) => (
+            <tr key={transaction._id}>
+              <td>{transaction.description}</td>
+              <td className={transaction.type}>
+                {transaction.type === 'withdraw' && ' - '}
+                {numberFormat(transaction.price)}
               </td>
-              <td>{statement.category}</td>
-              <td>{statement.date}</td>
+              <td>{transaction.category}</td>
+              <td>{dateFormat(new Date(transaction.date))}</td>
             </tr>
           ))}
         </tbody>

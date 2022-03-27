@@ -1,7 +1,6 @@
-import { createContext, useEffect, useState, ReactNode } from 'react';
+import { createContext, useEffect, useState, ReactNode, useContext } from 'react';
 import { api } from '../services/api';
 
-// O CONTEXTO FOI REFATORADO PARA UM HOOK E NÃO NECESSITA MAIS SER USADO ESSE ARQUIVO, MANTEVE-SE APENAS PARA EXEMPLIFICAÇÃO
 interface TransactionsContextProviderPros {
     children: ReactNode
 }
@@ -22,7 +21,7 @@ interface Transaction {
 
 type TransactionInput = Omit<Transaction, '_id' | 'date'>;
 
-export const TransactionsContext = createContext<TransactionsContextProps>(
+const TransactionsContext = createContext<TransactionsContextProps>(
     {} as TransactionsContextProps
 );
 
@@ -56,4 +55,10 @@ export function TransactionsContextProvider({ children }: TransactionsContextPro
             {children}
         </TransactionsContext.Provider>
     )
+}
+
+export function useTransactions () {
+    const context = useContext(TransactionsContext);
+
+    return context;
 }

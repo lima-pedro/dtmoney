@@ -1,15 +1,23 @@
 import { FormEvent, useState, useContext } from 'react';
 import Modal from 'react-modal';
-import { api } from '../../services/api';
-import { TransactionsContext } from '../../context/TransactionsContext';
+// import { api } from '../../services/api';
+// import { TransactionsContext } from '../../context/TransactionsContext';
 import { Container, TransactionTypeContainer, RadioBox } from './styles';
 import closeImg from '../../assets/close.svg';
 import incomeImg from '../../assets/income.svg';
 import outcomeImg from '../../assets/outcome.svg';
+import { useTransactions } from '../../hooks/useTransactions';
 
 interface NewTransactionModalProps {
     isOpen: boolean,
     onRequestClose: () => void;
+}
+
+interface TransactionInput {
+    description: string,
+    price: number,
+    type: string,
+    category: string
 }
 
 export function NewTransactionModal(
@@ -19,7 +27,7 @@ export function NewTransactionModal(
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
     const [category, setCategory] = useState('');
-    const { onUpdateTransactions } = useContext(TransactionsContext);
+    const { createTransaction } = useTransactions();
 
     function clearModal  () {
         setType('deposit');
@@ -30,15 +38,16 @@ export function NewTransactionModal(
 
     async function handleSubmitNewTransactionModal (event: FormEvent) {
         event.preventDefault();
-        const payload = {
+        const payload: TransactionInput = {
             description,
             price: price,
             type: type,
             category: category
         }
 
-        const response = await api.post('/transactions', payload);
-        onUpdateTransactions(response.data);
+        // const response = await api.post('/transactions', payload);
+        // onUpdateTransactions(response.data);
+        await createTransaction(payload)
         onRequestClose();
         clearModal();
     }
